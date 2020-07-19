@@ -1,0 +1,9 @@
+D:\MyPrograms\EmailManager\EmailManager\bin\Debug\EmailManager.exe.config
+D:\MyPrograms\EmailManager\EmailManager\bin\Debug\EmailManager.exe
+D:\MyPrograms\EmailManager\EmailManager\bin\Debug\EmailManager.pdb
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.csprojResolveAssemblyReference.cache
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.Properties.Resources.resources
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.csproj.GenerateResource.Cache
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.exe
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.pdb
+D:\MyPrograms\EmailManager\EmailManager\obj\Debug\EmailManager.Form1.resources
