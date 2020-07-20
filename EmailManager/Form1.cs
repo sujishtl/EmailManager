@@ -89,7 +89,7 @@ namespace EmailManager
                     try
                     {
                         string sender=string.Empty;
-                        if (mailItems[x].MessageClass == "REPORT.IPM.Note.NDR")
+                        if (mailItems[x].MessageClass != "REPORT.IPM.Note.NDR")
                         {
                            sender  = mailItems[x]?.SenderEmailAddress?.ToString() ?? "NoEmailAddress";
                         }
