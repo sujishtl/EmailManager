@@ -76,18 +76,45 @@ namespace EmailManager
                 //}
 
                 //  foreach (MailItem item in mailItems)
+                DataTable dt = new DataTable();
+                dt.Clear();
+                dt.Columns.Add("Sender");
+                dt.Columns.Add("SentOn");
+                dt.Columns.Add("Subject");
                 for (int x = 1; x < count; x++)
                 {
 
                     //if (mailItems[x].SentOn > DateTime.Now.AddMinutes(-9000))
                     //{
-
+                    try
+                    {
+                        string sender=string.Empty;
+                        if (mailItems[x].MessageClass == "REPORT.IPM.Note.NDR")
+                        {
+                           sender  = mailItems[x]?.SenderEmailAddress?.ToString() ?? "NoEmailAddress";
+                        }
+                        else
+                        {
+                             sender = "REPORT.IPM.Note.NDR";
+                        }
+                        DateTime sentOn = mailItems[x].SentOn ?? DateTime.Now;
+                        string subject = mailItems[x].Subject ?? "NoSubject";
+                        
                         mailList.Add(mailItems[x].SenderEmailAddress + "," + mailItems[x].SentOn + "," + mailItems[x].Subject);
+                        dt.Rows.Add(new object[] { sender, sentOn, subject });
+                    }
+                    catch(System.Exception ex)
+                    {
+                        Log(ex.Message);
+                        continue;
+                    }
 
                     //}
                 }
 
 
+                Dictionary<object, Int32> myGroupings = dt.AsEnumerable().GroupBy(p => p.Field<object>("Sender")).ToDictionary(p => p.Key, p => p.Count());
+                Int32 intDenominator = myGroupings.Values.Max();
             }
             catch (System.Exception ex)
             {
@@ -95,13 +122,15 @@ namespace EmailManager
                 Log(ex.Message);
             }
 
+
+
             statusLabel.Text = "Getting items completed";
             return mailList;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var csvPath = @"D:\csvMails"+DateTime.Now.ToString("ddMMyyHHmmss")+".csv";
+            var csvPath = @"D:\csvMails" + DateTime.Now.ToString("ddMMyyHHmmss") + ".csv";
             var itemsList = ReadMail();
             using (var file = File.CreateText(csvPath))
             {
@@ -119,10 +148,10 @@ namespace EmailManager
             {
                 // Create a file to write to.
 
-                File.WriteAllText(path, content + Environment.NewLine);
+                File.WriteAllText(path, DateTime.Now.ToString("ddMMyy HH:mm:ss :: ") + content + Environment.NewLine);
             }
             else
-                File.AppendAllText(path, content + Environment.NewLine);
+                File.AppendAllText(path, DateTime.Now.ToString("ddMMyy HH:mm:ss :: ") + content + Environment.NewLine);
         }
     }
 }
